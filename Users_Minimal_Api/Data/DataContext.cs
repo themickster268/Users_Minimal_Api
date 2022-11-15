@@ -8,7 +8,7 @@ namespace Users_Minimal_Api.Data
     {
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
-            if (!this.Users.Any())
+            /*if (!this.Users.Any())
             {
                 this.Users.AddRange
                 (
@@ -17,7 +17,7 @@ namespace Users_Minimal_Api.Data
                     new User { Username = "brucewayne39" }
                 );
                 this.SaveChanges();
-            }
+            }*/
         }
         
         public DbSet<User> Users => Set<User>();

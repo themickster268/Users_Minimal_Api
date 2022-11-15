@@ -1,8 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System.Net;
 using System.Net.Http.Json;
+using Users_Minimal_Api.Data;
 using Users_Minimal_Api.Dtos;
 using Users_Minimal_Api.Services;
 
@@ -41,6 +43,19 @@ namespace Users_Minimal_Api.Test
                     })); 
             using var client = application.CreateClient();
 
+            await client.PostAsJsonAsync("/users", new UserDto
+            {
+                Username = "joeblogs",
+            });
+            await client.PostAsJsonAsync("/users", new UserDto
+            {
+                Username = "alice_brown",
+            });
+            await client.PostAsJsonAsync("/users", new UserDto
+            {
+                Username = "brucewayne39",
+            });
+
             var response = await client.GetAsync("/users");
 
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
@@ -57,9 +72,14 @@ namespace Users_Minimal_Api.Test
                     }));
             using var client = application.CreateClient();
 
-            var response = await client.PutAsJsonAsync("/users/3", new UserDto
+            await client.PostAsJsonAsync("/users", new UserDto
             {
-                Username = "batman39"
+                Username = "tonystark63",
+            });
+
+            var response = await client.PutAsJsonAsync("/users/1", new UserDto
+            {
+                Username = "ironman63"
             });
 
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
@@ -76,6 +96,11 @@ namespace Users_Minimal_Api.Test
                     }));
             using var client = application.CreateClient();
 
+            await client.PostAsJsonAsync("/users", new UserDto
+            {
+                Username = "tonystark63",
+            });
+
             var response = await client.DeleteAsync("/users/1");
 
             Assert.Equal(HttpStatusCode.NoContent, response.StatusCode);
@@ -84,7 +109,12 @@ namespace Users_Minimal_Api.Test
         [Fact]
         public async void TestCreateUserWithEmptyString()
         {
-            await using var application = new WebApplicationFactory<Program>();
+            await using var application = new WebApplicationFactory<Program>()
+                .WithWebHostBuilder(builder => builder
+                    .ConfigureServices(services =>
+                    {
+                        services.AddScoped<IUsersService, UsersService>();
+                    }));
             using var client = application.CreateClient();
 
             var response = await client.PostAsJsonAsync("/users", new UserDto
@@ -130,7 +160,12 @@ namespace Users_Minimal_Api.Test
                     }));
             using var client = application.CreateClient();
 
-            var response = await client.PutAsJsonAsync("/users/3", new UserDto
+            await client.PostAsJsonAsync("/users", new UserDto
+            {
+                Username = "joeblogs",
+            });
+
+            var response = await client.PutAsJsonAsync("/users/1", new UserDto
             {
                 Username = ""
             });
@@ -149,7 +184,17 @@ namespace Users_Minimal_Api.Test
                     }));
             using var client = application.CreateClient();
 
-            var response = await client.PutAsJsonAsync("/users/3", new UserDto
+            await client.PostAsJsonAsync("/users", new UserDto
+            {
+                Username = "joeblogs",
+            });
+
+            await client.PostAsJsonAsync("/users", new UserDto
+            {
+                Username = "tonystark63",
+            });
+
+            var response = await client.PutAsJsonAsync("/users/2", new UserDto
             {
                 Username = "joeblogs"
             });

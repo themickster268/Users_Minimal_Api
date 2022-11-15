@@ -1,10 +1,8 @@
-using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using MiniValidation;
 using Users_Minimal_Api.Data;
 using Users_Minimal_Api.Dtos;
-using Users_Minimal_Api.Models;
 using Users_Minimal_Api.Services;
 
 var builder = WebApplication.CreateBuilder(args);

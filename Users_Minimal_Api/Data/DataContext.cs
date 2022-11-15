@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System.Security.Cryptography.X509Certificates;
 using Users_Minimal_Api.Models;
 
 namespace Users_Minimal_Api.Data

@@ -15,7 +15,6 @@ builder.Services.AddSwaggerGen(c => {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "UserAPI", Version = "v1" });
 });
 
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -29,10 +28,7 @@ if (app.Environment.IsDevelopment())
 
 var usersRoutes = app.MapGroup("/users");
 
-usersRoutes.MapGet("/",  (IUsersService userService) =>
-{
-    return userService.GetUsers();
-});
+usersRoutes.MapGet("/",  (IUsersService userService) => userService.GetUsers());
 
 usersRoutes.MapPost("/", (UserDto newUser, IUsersService userService) =>
 {
@@ -41,17 +37,14 @@ usersRoutes.MapPost("/", (UserDto newUser, IUsersService userService) =>
         : userService.CreateUser(newUser);
 });
 
-
-usersRoutes.MapPut("/{id}", (int id, UserDto newUser, IUsersService userService) => {
+usersRoutes.MapPut("/{id}", (int id, UserDto newUser, IUsersService userService) => 
+{
     return !MiniValidator.TryValidate(newUser, out var errors)
         ? Results.ValidationProblem(errors)
         : userService.UpdateUser(id, newUser);
 });
 
-usersRoutes.MapDelete("/{id}", (int id, IUsersService userService) =>
-{
-    return userService.DeleteUser(id);
-});
+usersRoutes.MapDelete("/{id}", (int id, IUsersService userService) => userService.DeleteUser(id));
 
 app.Run();
 

@@ -30,7 +30,6 @@ namespace Users_Minimal_Api.Services
         public IResult DeleteUser(int id)
         {
             var user = _context.Users.FirstOrDefault(u => u.UserId.Equals(id));
-
             if (user is null)
             {
                 return Results.NotFound();
@@ -54,6 +53,7 @@ namespace Users_Minimal_Api.Services
             {
                 return Results.BadRequest("User with that username already exists.");
             }
+
             var user = _context.Users.FirstOrDefault(u => u.UserId.Equals(id));
             if (user is null)
             {

@@ -1,10 +1,7 @@
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Testing;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System.Net;
 using System.Net.Http.Json;
-using Users_Minimal_Api.Data;
 using Users_Minimal_Api.Dtos;
 using Users_Minimal_Api.Services;
 

@@ -6,13 +6,14 @@ using Users_Minimal_Api.Dtos;
 using Users_Minimal_Api.Services;
 
 var builder = WebApplication.CreateBuilder(args);
+
 builder.Services.AddDbContext<DataContext>(options => options.UseInMemoryDatabase("UsersDB"));
+builder.Services.AddScoped<IUsersService, UsersService>();
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c => {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "UserAPI", Version = "v1" });
 });
-builder.Services.AddScoped<IUsersService, UsersService>();
 
 
 var app = builder.Build();

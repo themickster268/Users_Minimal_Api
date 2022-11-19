@@ -32,7 +32,7 @@ namespace Users_Minimal_Api.Services
             var user = _context.Users.FirstOrDefault(u => u.UserId.Equals(id));
             if (user is null)
             {
-                return Results.NotFound();
+                return Results.NotFound("User not found.");
             }
 
             _context.Users.Remove(user);
@@ -59,6 +59,8 @@ namespace Users_Minimal_Api.Services
             {
                 return Results.NotFound("User not found.");
             }
+
+            user.Username = updatedUser.Username;
 
             _context.Users.Update(user);
             _context.SaveChanges();

@@ -12,7 +12,7 @@ builder.Services.AddScoped<IUsersService, UsersService>();
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c => {
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "UserAPI", Version = "v1" });
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "UsersAPI", Version = "v1" });
 });
 
 var app = builder.Build();
@@ -22,7 +22,7 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI(c => {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "UserAPI v1");
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "UsersAPI v1");
     });
 }
 
